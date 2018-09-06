@@ -1,14 +1,20 @@
 {
   "name": "format-json",
   "version": "1.0.0",
-  "description": "",
+  "description": "Comand line tool for formating json.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "homepage": "https://github.com/kobylin/format-json",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kobylin/format-json.git"
   },
-  "author": "",
+  "scripts": {},
+  "author": "Andrew Kobylin",
   "license": "ISC",
   "dependencies": {
     "json-stable-stringify": "^1.0.1"
+  },
+  "bin": {
+    "format-json": "./index.js"
   }
 }
