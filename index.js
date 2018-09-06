@@ -4,31 +4,38 @@ const fs = require('fs');
 const stringify = require('json-stable-stringify');
 
 if (process.stdin.isTTY) {
-
     const files = process.argv.slice(2);
-
-    files.forEach(fileName => {
-        const content = fs.readFileSync(fileName);
-        if (!content) {
-            console.error('Wrong file name', fileName);
-            return;
-        }
-
-        try {
-            const contentString = content.toString();
-            const formated = formatJson(contentString);
-            
-            fs.writeFileSync(fileName, formated);
-        } catch (e) {
-            console.log(`File content ${fileName} is not json. Error ${e.toString()}`);
-        }
-
-    });
+    files.forEach(formatAndOwerwriteFile);
 } else {
-    getPipeContent(content => {
-        const formated = formatJson(content);
+    formatAndOutputStdin()
+}
 
-        process.stdout.write(formated);
+function formatAndOwerwriteFile(fileName) {
+    const content = fs.readFileSync(fileName);
+
+    if (!content) {
+        console.error(`Can't read file: ${fileName}`);
+        return;
+    }
+
+    try {
+        const contentString = content.toString();
+        const formated = formatJson(contentString);
+
+        fs.writeFileSync(fileName, formated);
+    } catch (e) {
+        console.log(`File content ${fileName} is not json. Error ${e.toString()}`);
+    }
+}
+
+function formatAndOutputStdin() {
+    getStdinContent(content => {
+        try {
+            const formated = formatJson(content);
+            process.stdout.write(formated);
+        } catch (e) {
+            console.log(`Can't format stdin content. Error: ${e.toString()}`);
+        }
     });
 }
 
@@ -36,7 +43,7 @@ function formatJson(content) {
     return stringify(JSON.parse(content), { space: '    ' });
 }
 
-function getPipeContent(cb) {
+function getStdinContent(cb) {
   let data = '';
   let stream = process.stdin;
 
