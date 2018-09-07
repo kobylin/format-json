@@ -1,6 +1,6 @@
 {
   "name": "json-format-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Comand line tool for formating json.",
   "main": "index.js",
   "homepage": "https://github.com/kobylin/format-json",
@@ -15,7 +15,7 @@
     "json-stable-stringify": "^1.0.1"
   },
   "bin": {
-    "json-format-cli": "./index.js"
+    "json-format": "./index.js"
   },
   "keywords": [
     "json",
