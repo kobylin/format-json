@@ -16,5 +16,13 @@
   },
   "bin": {
     "json-format-cli": "./index.js"
-  }
+  },
+  "keywords": [
+    "json",
+    "stringify",
+    "deterministic",
+    "sort",
+    "stable",
+    "cli"
+  ]
 }
