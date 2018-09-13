@@ -1,15 +1,15 @@
 # Format JSON
 
-Comand line tool for formating json.
+Command line tool for formatting json.
 
 Based on library [json-stable-stringify](https://github.com/substack/json-stable-stringify)
 
 ### What is does?
 
-- Sorting properties alpabetically
+- Sorting properties alphabetically
 - Formatting json with 4 space indentation
 
-Can be useful when response from server is not formated or properties come in different order every time.
+Can be useful when response from server is not formatted or properties come in different order every time.
 
 __Formatting__ 
 ```
@@ -53,7 +53,7 @@ __Sorting props__
 
 `format-json foo.json bar.json`
 
-In this case every file will be overwritten by formated file.
+In this case every file will be overwritten by formatted file.
 
 
 ### Using pipes

@@ -1,28 +1,34 @@
 {
-  "name": "json-format-cli",
-  "version": "1.0.2",
-  "description": "Comand line tool for formating json.",
-  "main": "index.js",
-  "homepage": "https://github.com/kobylin/format-json",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kobylin/format-json.git"
-  },
-  "scripts": {},
-  "author": "Andrew Kobylin",
-  "license": "ISC",
-  "dependencies": {
-    "json-stable-stringify": "^1.0.1"
-  },
-  "bin": {
-    "json-format": "./index.js"
-  },
-  "keywords": [
-    "json",
-    "stringify",
-    "deterministic",
-    "sort",
-    "stable",
-    "cli"
-  ]
+    "author": "Andrew Kobylin",
+    "bin": {
+        "json-format": "./index.js"
+    },
+    "dependencies": {
+        "json-stable-stringify": "^1.0.1",
+        "minimist": "^1.2.0"
+    },
+    "description": "Command line tool for formatting json.",
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "mocha": "^5.2.0",
+        "proxyquire": "^2.1.0"
+    },
+    "homepage": "https://github.com/kobylin/format-json",
+    "keywords": [
+        "json",
+        "stringify",
+        "deterministic",
+        "sort",
+        "stable",
+        "cli"
+    ],
+    "license": "ISC",
+    "main": "index.js",
+    "name": "json-format-cli",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kobylin/format-json.git"
+    },
+    "scripts": {},
+    "version": "1.0.2"
 }

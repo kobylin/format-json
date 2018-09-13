@@ -1,62 +1,32 @@
 #! /usr/bin/node
 
-const fs = require('fs');
-const stringify = require('json-stable-stringify');
+const minimist = require("minimist");
+const jsonFormat = require("./json-format");
+
+const argv = minimist(process.argv.slice(2));
+
+console.log(argv);
+
+if (argv.h || argv.help) {
+    console.log(`
+    json-format [file]- Command line tool for formatting json.
+    
+    --indent - number of chars used for indentation
+    --indent-char - char used for indentation 'space' or 'tab'
+`);
+}
+
+const CHAR_SPACE = " ";
+const CHAR_TAB = "\t";
+
+const indentChar = argv["indent-char"] === "tab" ? CHAR_TAB : CHAR_SPACE;
+const indentSize = argv["indent"] ? parseInt(argv["indent"]) : 4;
 
 if (process.stdin.isTTY) {
-    const files = process.argv.slice(2);
-    files.forEach(formatAndOwerwriteFile);
+    const files = argv._;
+    files.forEach(file =>
+        jsonFormat.formatAndOverwriteFile(file.toString(), indentSize, indentChar)
+    );
 } else {
-    formatAndOutputStdin()
-}
-
-function formatAndOwerwriteFile(fileName) {
-    const content = fs.readFileSync(fileName);
-
-    if (!content) {
-        console.error(`Can't read file: ${fileName}`);
-        return;
-    }
-
-    try {
-        const contentString = content.toString();
-        const formated = formatJson(contentString);
-
-        fs.writeFileSync(fileName, formated);
-    } catch (e) {
-        console.log(`File content ${fileName} is not json. Error ${e.toString()}`);
-    }
-}
-
-function formatAndOutputStdin() {
-    getStdinContent(content => {
-        try {
-            const formated = formatJson(content);
-            process.stdout.write(formated);
-        } catch (e) {
-            console.log(`Can't format stdin content. Error: ${e.toString()}`);
-        }
-    });
-}
-
-function formatJson(content) {
-    return stringify(JSON.parse(content), { space: '    ' });
-}
-
-function getStdinContent(cb) {
-  let data = '';
-  let stream = process.stdin;
-
-  stream.on('readable', function() {
-      let chunk = this.read();
-      if (chunk === null) {
-          stream.end();
-      } else {
-         data += chunk;
-      }
-  });
-
-  stream.on('end', function() {
-     cb(data.trim());
-  });
+    jsonFormat.formatAndOutputStdin(indentSize, indentChar)
 }
