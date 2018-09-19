@@ -9,9 +9,9 @@
     },
     "description": "Command line tool for formatting json.",
     "devDependencies": {
-        "chai": "^4.1.2",
         "mocha": "^5.2.0",
-        "proxyquire": "^2.1.0"
+        "proxyquire": "^2.1.0",
+        "sinon": "^6.3.4"
     },
     "homepage": "https://github.com/kobylin/format-json",
     "keywords": [
@@ -29,6 +29,8 @@
         "type": "git",
         "url": "git+https://github.com/kobylin/format-json.git"
     },
-    "scripts": {},
+    "scripts": {
+        "test": "mocha"
+    },
     "version": "1.0.2"
 }

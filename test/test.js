@@ -1,18 +1,11 @@
 const assert = require('assert');
+const sinon =  require('sinon');
 const proxyquire =  require('proxyquire');
+const jsonFormat = require('../json-format');
 
 describe('json-format', function() {
-    let jsonFormat;
-
 
     describe('#formatJson()', function() {
-
-        before(() => {
-            jsonFormat = proxyquire('../json-format', {
-
-            });
-            console.log('before....');
-        });
 
         it('should return json formatted with 4 spaces', function() {
             const json = '{"a":1,    "b": "2"}';
@@ -52,21 +45,33 @@ describe('json-format', function() {
     "z": 21
 }`          );
         });
-
-
-
     });
 
     describe("#formatAndOverwriteFile", function() {
-        before(() => {
-            jsonFormat = proxyquire('../json-format', {
-                readFileSync: () => '{"a":1,    "b": "2"}'
-            });
-            console.log('before....');
+        let jsonFormat;
+        let fs;
+
+        beforeEach(() => {
+            fs = {
+                readFileSync: () => '{"a":1,    "b": "2"}',
+                writeFileSync: () => {}
+            };
+            jsonFormat = proxyquire('../json-format', { fs });
         });
 
         it("should format and override file", () => {
+            const fileName = '/foo/bar';
+            const indentSize = 4;
+            const indentChar = ' ';
 
-        })
+            const writeFileSyncSpy = sinon.spy(fs, 'writeFileSync');
+            jsonFormat.formatAndOverwriteFile(fileName, indentSize, indentChar);
+
+            sinon.assert.calledWith(writeFileSyncSpy, fileName, `{
+    "a": 1,
+    "b": "2"
+}`);
+            fs.writeFileSync.restore();
+        });
     });
 });
