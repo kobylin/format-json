@@ -1,4 +1,4 @@
-#! /usr/bin/node
+#! /usr/bin/env node
 
 const minimist = require("minimist");
 const jsonFormat = require("./json-format");
