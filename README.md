@@ -29,17 +29,17 @@ Can be useful when response from server is not formatted or properties come in d
 
 ### You can pass any numbers of files to it
 
-`format-json foo.json bar.json`
+`json-format foo.json bar.json`
 
 In this case every file will be overwritten by formatted file.
 
 
 ### Using pipes
 
-`cat foo.json | format-json > result.json`
+`cat foo.json | json-format > result.json`
 
 
-`curl https://api.chucknorris.io/jokes/random | format-json`
+`curl https://api.chucknorris.io/jokes/random | json-format`
 
 
 ### Formatting example
