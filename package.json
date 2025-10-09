@@ -4,7 +4,6 @@
         "json-format": "./index.js"
     },
     "dependencies": {
-        "json-stable-stringify": "^1.0.1",
         "minimist": "^1.2.0"
     },
     "description": "Command line tool for formatting json.",

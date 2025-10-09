@@ -1,5 +1,22 @@
 const fs = require("fs");
-const stringify = require("json-stable-stringify");
+
+function sortKeysDeep(value) {
+    if (Array.isArray(value)) {
+        return value.map(sortKeysDeep);
+    }
+
+    if (value && typeof value === "object") {
+        const sorted = {};
+        Object.keys(value)
+            .sort()
+            .forEach(key => {
+                sorted[key] = sortKeysDeep(value[key]);
+            });
+        return sorted;
+    }
+
+    return value;
+}
 
 class JsonFormat {
     static formatAndOverwriteFile(fileName, indentSize, indentChar) {
@@ -49,9 +66,10 @@ class JsonFormat {
     }
 
     static formatJson(content, indentSize, indentChar) {
-        const space =
-            indentSize > 0 ? new Array(indentSize + 1).join(indentChar) : "";
-        return stringify(JSON.parse(content), { space });
+        const space = indentSize > 0 ? indentChar.repeat(indentSize) : "";
+        const parsed = JSON.parse(content);
+        const sorted = sortKeysDeep(parsed);
+        return JSON.stringify(sorted, null, space);
     }
 
     static getStdinContent(cb) {

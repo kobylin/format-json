@@ -50,6 +50,33 @@ describe("json-format", () => {
 }`
             );
         });
+
+        it("should sort nested objects inside arrays", () => {
+            const json =
+                '[{"b":2,"a":1},{"d":4,"c":3}]';
+
+            const formatted = jsonFormat.formatJson(json, 2, " ");
+            assert.equal(
+                formatted,
+                `[
+  {
+    "a": 1,
+    "b": 2
+  },
+  {
+    "c": 3,
+    "d": 4
+  }
+]`
+            );
+        });
+
+        it("should format primitive root values", () => {
+            const json = "123";
+
+            const formatted = jsonFormat.formatJson(json, 4, " ");
+            assert.equal(formatted, "123");
+        });
     });
 
     describe("#formatAndOverwriteFile", () => {
