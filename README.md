@@ -2,7 +2,8 @@
 
 Command line tool for formatting json.
 
-Based on library [json-stable-stringify](https://github.com/substack/json-stable-stringify)
+Provides a built-in deterministic formatter that sorts object properties
+alphabetically to keep diffs stable.
 
 ### Installation
 
